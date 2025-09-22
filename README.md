@@ -92,7 +92,9 @@ Furthermore, all changes to the API will be documented in the [changelog](./CHAN
 
 ### Lead times for Breaking Changes
 
-Depending on the type of breaking change and the data portal you choose, these are the lead times from announcement to implementation :
+Depending on the type of breaking change and the data portal you choose, these are the lead times from announcement to implementation:
+
+**Important: These lead times only apply after the API's beta phase has ended. Until then, we might implement breaking changes on shorter notice.**
 
 |                    | Changes to the data model | Changes to the API / Transport Layer |
 |--------------------|--|--|
