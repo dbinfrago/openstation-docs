@@ -41,7 +41,7 @@ Obtaining data through Mobilithek is our recommended approach. You won't need an
 
 ##### Manual access
 
-**You can download the dataset manually from your web browser [here](https://mobilithek.info/organisation/offers/879076212433727488).**
+**You can download the dataset manually from your web browser [here](https://mobilithek.info/offers/879076212433727488).**
 
 ##### Programmatic access
 
