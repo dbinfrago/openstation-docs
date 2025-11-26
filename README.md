@@ -1,6 +1,6 @@
 # openstation-docs
 
-**OpenStation** is [DB InfraGO](https://www.dbinfrago.com/)'s single source of truth for open data on passenger station infrastructure in Germany. It provides data in accordance with European standards ([NeTEx](https://netex-cen.eu), _[SIRI](https://siri-cen.eu) coming soon_), and represents our so-called Inventory of Assets as required by the EU's [TSI-PRM regulation](https://www.era.europa.eu/domains/technical-specifications-interoperability/persons-disabilities-and-reduced-mobility-tsi_en) on the accessibility on passenger rail infrastructure.
+**OpenStation** is [DB InfraGO](https://www.dbinfrago.com/)'s single source of truth for open data on passenger station infrastructure in Germany. It provides data in accordance with European standards ([NeTEx](https://netex-cen.eu), [SIRI](https://siri-cen.eu)), and represents our so-called Inventory of Assets as required by the EU's [TSI-PRM regulation](https://www.era.europa.eu/domains/technical-specifications-interoperability/persons-disabilities-and-reduced-mobility-tsi_en) on the accessibility on passenger rail infrastructure.
 
 This documentation provides an introduction to the two ways of obtaining _OpenStation_ data and presents a brief overview of the data model used in the API. Furthermore, it outlines our approach to API endpoint stability and breaking changes. Please read that section carefully if you plan to use our API in a production system.
 
@@ -28,8 +28,8 @@ Both of these sources offer advantages and disadvantages, which are documented b
 
 |                 | Mobilithek | DB API Marketplace |
 |-----------------|------------|--------------------|
-|**Advantages**   | No API credentials required, no request limits, high performance, bulk output, supports compression, longer stability guarantees (see section on breaking changes below) | Filter parameters (e.g. filtering the output by station id), pagination |
-|**Disadvantages**| No filter parameters (just one plain XML dataset containing everything) | API credentials required, request limits, no bulk output (pagination required), no compression |
+|**Advantages**   | No API credentials required, no request limits, high performance, bulk output, supports compression, longer stability guarantees (see section on breaking changes below) | Filter parameters (e.g. filtering the output by station id), pagination, already includes SIRI data |
+|**Disadvantages**| No SIRI data yet, no filter parameters (just one plain XML dataset containing everything) | API credentials required, request limits, no bulk output (pagination required), no compression |
 
 We intend DB API Marketplace with its additional filter parameters to be used for smaller, exploratory projects, while all other systems, especially large production deployments, should retrieve their data via the Mobilithek.
 
@@ -63,7 +63,7 @@ Please note that the library you use to send the request must support HTTP redir
 
 #### SIRI
 
-_Not implemented yet, coming soon._
+As of 2025-11-26, we are still working on bringing our SIRI FM ("facility monitoring") data to Mobilithek. We estimate that data will be available there starting early December 2025. Documentation for accessing the data will be added here once the data is available.
 
 ### DB API Marketplace
 
@@ -88,7 +88,13 @@ curl 'https://apis.deutschebahn.com/db-api-marketplace/apis/open-station/v1/nete
 
 #### SIRI
 
-_Not implemented yet, coming soon._
+Given your `Client ID` and `Client Secret`, you can retrieve our _OpenStation_ SIRI FM ("facility monitoring") dataset as follows:
+
+```sh
+curl 'https://apis.deutschebahn.com/db-api-marketplace/apis/open-station/v1/siri-lite/fm.xml' \
+-H 'DB-Client-ID: <YOUR_CLIENT_ID>' \
+-H 'DB-Api-Key: <YOUR_CLIENT_SECRET>' > siri-fm.xml
+```
 
 ## Data model
 
