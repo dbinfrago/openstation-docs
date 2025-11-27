@@ -1,14 +1,14 @@
 # openstation-docs
 
-**OpenStation** is [DB InfraGO](https://www.dbinfrago.com/)'s single source of truth for open data on passenger station infrastructure in Germany. It provides data in accordance with European standards ([NeTEx](https://netex-cen.eu), [SIRI](https://siri-cen.eu)), and represents our so-called Inventory of Assets as required by the EU's [TSI-PRM regulation](https://www.era.europa.eu/domains/technical-specifications-interoperability/persons-disabilities-and-reduced-mobility-tsi_en) on the accessibility on passenger rail infrastructure.
+**_OpenStation_** is [DB InfraGO](https://www.dbinfrago.com/)'s single source of truth for open data on passenger station infrastructure in Germany. It provides data in accordance with European standards ([NeTEx](https://netex-cen.eu), [SIRI](https://siri-cen.eu)), and represents our so-called Inventory of Assets as required by the EU's [TSI-PRM regulation](https://www.era.europa.eu/domains/technical-specifications-interoperability/persons-disabilities-and-reduced-mobility-tsi_en) on the accessibility on passenger rail infrastructure.
 
-This documentation provides an introduction to the two ways of obtaining _OpenStation_ data and presents a brief overview of the data model used in the API. Furthermore, it outlines our approach to API endpoint stability and breaking changes. Please read that section carefully if you plan to use our API in a production system.
+This documentation provides an overview of the data model used in the API as well as the technical way(s) to obtain _OpenStation_ data. Furthermore, it outlines our approach to API endpoint stability and breaking changes. Please read these notes carefully if you plan to use our API in a production system.
 
 ## Contents
 
 - [Beta status](#beta-status)
-- [Obtaining _OpenStation_ data](#obtaining-openstation-data)
 - [Data model](#data-model)
+- [Obtaining _OpenStation_ data](#obtaining-openstation-data)
 - [Stability and Breaking Changes](#stability-and-breaking-changes)
 - [License](#license)
 - [Contributing](#contributing)
@@ -16,6 +16,38 @@ This documentation provides an introduction to the two ways of obtaining _OpenSt
 ## Beta status
 
 A note before we dive into the details: _OpenStation_ is currently in an open beta phase, which is – as of October 2025 – planned to last until December 2025. This means that some elements of the “target data model” are not yet available at all stations. We are working on collecting that data in a timely manner.
+
+## Data model
+
+### Introduction
+
+OpenStation's data model is based on the European [*NeTEx*](https://netex-cen.eu) and [*SIRI*](https://siri-cen.eu) standards. These two norms are part of the so-called [*Transmodel*](https://transmodel-cen.eu) standards family. The [*Transmodel*](https://transmodel-cen.eu) norm defines a common vocabulary for the public transportation sector (for example: it is specified that a public transport station should be called a `StopPlace` or that an elevator is called a `LiftEquipment`). Based on this common language, several standards are derived for specific use cases. For our purposes, these include:
+
+- [*NeTEx*](https://netex-cen.eu), for the exchange of static/scheduled data
+- [*SIRI*](https://siri-cen.eu), for the exchange of dynamic/realtime data
+
+In the scope of _OpenStation_, which contains passenger station infrastructure data, this translates into the following:
+
+- **_OpenStation NeTEx_** contains data on our physical station infrastructure (platforms, access spaces, equipments, etc.) as well as DB InfraGO's organizational model, all of which change quite rarely and with a long lead time
+- **_OpenStation SIRI_** contains realtime status data (e.g. indicating that a lift is currently out of service), which can change very frequently
+
+Our *NeTEx* and *SIRI* datasets are intended to be combined by the consuming application into a full model of our infrastructure with real time status updates, which would allow implementation of use cases such as realtime barrier-free routing.
+
+### Data formats
+
+Both NeTEx and SIRI are XML-based standards. For SIRI, an additional JSON variant has been introduced recently. For NeTEx however, XML is still the only serialization available.
+
+For this reason, as of its initial productive release, OpenStation only delivers XML data. This also applies for SIRI, even though a JSON variant would be feasible, because most SIRI users will also need to use NeTEx and therefore be required to handle XML data anyway.
+
+However, we are aware of the ergonomic upsides which a JSON variant would bring, especially for users switching from our old JSON-based *StaDa* and *FaSta* APIs, for which the usability of our new *OpenStation* API might feel like a downgrade at first.
+
+For this reason, we are working on a draft for a JSON variant of NeTEx, which we hope to discuss and implement in 2026, along a JSON-based SIRI delivery. We will update you via our [communication channels](#communication-channels) once such an implementation is available.
+
+### Our data model in detail
+
+**[→ Our NeTEx data model](./NeTEx.md)**
+
+_**→ Our SIRI data model** – coming soon_
 
 ## Obtaining _OpenStation_ data
 
@@ -95,10 +127,6 @@ curl 'https://apis.deutschebahn.com/db-api-marketplace/apis/open-station/v1/siri
 -H 'DB-Client-ID: <YOUR_CLIENT_ID>' \
 -H 'DB-Api-Key: <YOUR_CLIENT_SECRET>' > siri-fm.xml
 ```
-
-## Data model
-
-_Coming soon._
 
 ## Stability and Breaking Changes
 
