@@ -6,16 +6,11 @@ This documentation provides an overview of the data model used in the API as wel
 
 ## Contents
 
-- [Beta status](#beta-status)
 - [Data model](#data-model)
 - [Obtaining _OpenStation_ data](#obtaining-openstation-data)
 - [Stability and Breaking Changes](#stability-and-breaking-changes)
 - [License](#license)
 - [Contributing](#contributing)
-
-## Beta status
-
-A note before we dive into the details: _OpenStation_ is currently in an open beta phase, which is – as of October 2025 – planned to last until December 2025. This means that some elements of the “target data model” are not yet available at all stations. We are working on collecting that data in a timely manner.
 
 ## Data model
 
@@ -45,7 +40,7 @@ For this reason, we are working on a draft for a JSON variant of NeTEx, which we
 
 ### Our data model in detail
 
-**[→ Our NeTEx data model](./NeTEx.md)**
+_**→ Our NeTEx data model** – coming soon_
 
 _**→ Our SIRI data model** – coming soon_
 
@@ -53,15 +48,15 @@ _**→ Our SIRI data model** – coming soon_
 
 _OpenStation_ data can be obtained in two ways:
 
-1. Via Germany's [Mobilithek](https://mobilithek.info) (the country's [national access point](https://transport.ec.europa.eu/transport-themes/smart-mobility/road/its-directive-and-action-plan/national-access-points_en) for open transportation data as mandated by EU legislation) (see details [below](#mobilithek))
+1. Via Germany's [Mobilithek](https://mobilithek.info), the country's [national access point](https://transport.ec.europa.eu/transport-themes/smart-mobility/road/its-directive-and-action-plan/national-access-points_en) for open transportation data as mandated by EU legislation (see details [below](#mobilithek))
 2. Via [DB's API Marketplace](https://developers.deutschebahn.com/db-api-marketplace/apis/) (see details [below](#db-api-marketplace))
 
-Both of these sources offer advantages and disadvantages, which are documented below. **However, TL;DR: For a permanent productive connection, we strongly recommend obtaining _OpenStation_ data via the Mobilithek.**
+Both of these sources offer advantages and disadvantages, which are documented below. **However, TL;DR: For a permanent productive connection, we strongly recommend obtaining _OpenStation_ data via Mobilithek.**
 
 |                 | Mobilithek | DB API Marketplace |
 |-----------------|------------|--------------------|
-|**Advantages**   | No API credentials required, no request limits, high performance, bulk output, supports compression, longer stability guarantees (see section on breaking changes below) | Filter parameters (e.g. filtering the output by station id), pagination, already includes SIRI data |
-|**Disadvantages**| No SIRI data yet, no filter parameters (just one plain XML dataset containing everything) | API credentials required, request limits, no bulk output (pagination required), no compression |
+|**Advantages**   | No API credentials required, no request limits, high performance, bulk output, supports compression, longer stability guarantees (see section on breaking changes below) | Filter parameters (e.g. filtering the output by station id), pagination |
+|**Disadvantages**| No filter parameters (just one plain XML dataset containing everything) | API credentials required, request limits, no bulk output (pagination required), no compression |
 
 We intend DB API Marketplace with its additional filter parameters to be used for smaller, exploratory projects, while all other systems, especially large production deployments, should retrieve their data via the Mobilithek.
 
@@ -95,13 +90,33 @@ Please note that the library you use to send the request must support HTTP redir
 
 #### SIRI
 
-As of 2025-11-26, we are still working on bringing our SIRI FM ("facility monitoring") data to Mobilithek. We estimate that data will be available there starting early December 2025. Documentation for accessing the data will be added here once the data is available.
+##### Manual access
+
+**You can download the dataset manually from your web browser [here](https://mobilithek.info/offers/930558234532405248).**
+
+##### Programmatic access
+
+You can obtain the _OpenStation_ NeTEx dataset as follows:
+
+```sh
+curl --compressed 'https://mobilithek.info/mdp-api/mdp-conn-server/v1/publication/930558234532405248/file/noauth' > siri-fm.xml
+```
+
+As you might have noticed, this request contains a dataset ID assigned by Mobilithek. That ID is stable for now, but if we, for some unforeseen reason, have to re-register our dataset at any point in the future, the ID might change.
+
+We therefore offer the following additional endpoint, which will always redirect to our latest Mobilithek dataset. We strongly recommend using it:
+
+```sh
+curl -L --compressed 'https://bahnhof.de/daten/siri-lite/fm.xml' > siri-fm.xml
+```
+
+Please note that the library you use to send the request must support HTTP redirects (in case of `curl`, this is achieved by supplying the `-L` option).
 
 ### DB API Marketplace
 
 #### Prerequisites
 
-To obtain _OpenStation_ data through the DB API Marketplace, you first need to complete the following steps:
+To obtain _OpenStation_ data through DB API Marketplace, you first need to complete the following steps:
 
 1. Create a new user account [here](https://developers.deutschebahn.com/db-api-marketplace/apis/user/login)
 2. Create a new application [here](https://developers.deutschebahn.com/db-api-marketplace/apis/application)
@@ -145,12 +160,13 @@ Furthermore, all significant changes to the API will be documented in the [chang
 
 Depending on the type of breaking change and the data portal you choose, these are the lead times from announcement to implementation:
 
-**Important: These lead times only apply after the API's beta phase has ended. Until then, we might implement breaking changes on shorter notice.**
-
-|                    | Changes to the data model | Changes to the API / Transport Layer |
+|                    | Changes to the data model\* | Changes to the API / Transport Layer\*\* |
 |--------------------|--|--|
 | Mobilithek         | 9 months | 6 months |
 | DB API Marketplace | 9 months | 3 months |
+
+\*e.g.: removing entity types \
+\*\*e.g.: renaming endpoints
 
 ## License
 
