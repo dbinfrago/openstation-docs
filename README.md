@@ -16,7 +16,7 @@ This documentation provides an overview of the data model used in the API as wel
 
 ### Introduction
 
-OpenStation's data model is based on the European [*NeTEx*](https://netex-cen.eu) and [*SIRI*](https://siri-cen.eu) standards. These two norms are part of the so-called [*Transmodel*](https://transmodel-cen.eu) standards family. The [*Transmodel*](https://transmodel-cen.eu) norm defines a common vocabulary for the public transportation sector (for example: it is specified that a public transport station should be called a `StopPlace` or that an elevator is called a `LiftEquipment`). Based on this common language, several standards are derived for specific use cases. For our purposes, these include:
+OpenStation's data model is based on the European [*NeTEx*](https://netex-cen.eu) and [*SIRI*](https://siri-cen.eu) standards. These two norms are part of the so-called [*Transmodel*](https://transmodel-cen.eu) standards family. The [*Transmodel*](https://transmodel-cen.eu) norm defines a common vocabulary for the public transportation sector (for example: it is specified that a public transport station should be called a `Stop Place` or that an elevator is called a `Lift Equipment`). Based on this common language, several standards are derived for specific use cases. For our purposes, these include:
 
 - [*NeTEx*](https://netex-cen.eu), for the exchange of static/scheduled data
 - [*SIRI*](https://siri-cen.eu), for the exchange of dynamic/realtime data
@@ -40,7 +40,7 @@ For this reason, we are working on a draft for a JSON variant of NeTEx, which we
 
 ### Our data model in detail
 
-_**→ Our NeTEx data model** – coming soon_
+**[→ Our NeTEx data model](./NeTEx.md)**
 
 _**→ Our SIRI data model** – coming soon_
 
