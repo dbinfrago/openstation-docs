@@ -1,5 +1,7 @@
 # openstation-docs
 
+<img src="./dbinfrago.png" alt="DB InfraGO's company logo" height="50">
+
 **_OpenStation_** is [DB InfraGO](https://www.dbinfrago.com/)'s single source of truth for open data on passenger station infrastructure in Germany. It provides data in accordance with European standards ([NeTEx](https://netex-cen.eu), [SIRI](https://siri-cen.eu)), and represents our so-called Inventory of Assets as required by the EU's [TSI-PRM regulation](https://www.era.europa.eu/domains/technical-specifications-interoperability/persons-disabilities-and-reduced-mobility-tsi_en) on the accessibility on passenger rail infrastructure.
 
 This documentation provides an overview of the data model used in the API as well as the technical way(s) to obtain _OpenStation_ data. Furthermore, it outlines our approach to API endpoint stability and breaking changes. Please read these notes carefully if you plan to use our API in a production system.
