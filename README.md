@@ -8,11 +8,25 @@ This documentation provides an overview of the data model used in the API as wel
 
 ## Contents
 
+- [Who is this for?](#who-is-this-for)
 - [Data model](#data-model)
 - [Obtaining _OpenStation_ data](#obtaining-openstation-data)
 - [Stability and Breaking Changes](#stability-and-breaking-changes)
 - [License](#license)
 - [Contributing](#contributing)
+
+## Who is this for?
+
+The primary audience for _OpenStation_ are developers of **multimodal travel information systems (MMTIS)**, journey planners, and similar data-aggregation backends — for example open-source projects like [OpenTripPlanner](https://www.opentripplanner.org) or [MOTIS](https://motis-project.de) (the latter also powering data-aggregation projects like [Transitous](https://transitous.org)), as well as in-house equivalents at other operators and authorities.
+
+This focus is deliberate. _OpenStation_ is, by design, scoped strictly to the infrastructure operated by DB InfraGO. Any system that produces an end-user experience — a routing app, a station-information frontend, an accessibility-routing tool — typically needs to combine our data with data from other operators (stops, schedules, realtime, accessibility) to be genuinely useful. That combination is the job of an MMTIS, not of an infrastructure operator's open-data API.
+
+Concretely:
+
+- **If you are building or operating an MMTIS / journey planner**, you are our primary target audience. _OpenStation_ delivers data in the shape you'll want to ingest it: standards-compliant NeTEx and SIRI, bulk delivery via Mobilithek with stable URLs and long change-management lead times, and increasingly detailed accessibility and indoor-graph data over time.
+- **If you are building an end-user application**, _OpenStation_ on its own will likely not be enough. You will want a multimodal data product that aggregates infrastructure, schedule, and realtime data across operators. Several such products exist — both open-source (the projects mentioned above) and commercial (including offerings from DB itself, such as the **RIS:: API family**). You can still consume _OpenStation_ directly, but expect significant integration work to reach a passenger-facing experience.
+
+This is also why _OpenStation_ does not currently offer conveniences typical of consumer-facing APIs (per-resource JSON lookups, routing primitives, and similar). They would obscure the boundary between an infrastructure publisher and a journey-planning service, and would not actually serve the audience we are building for.
 
 ## Data model
 
