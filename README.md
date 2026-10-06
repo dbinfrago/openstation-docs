@@ -195,3 +195,7 @@ If you have problems using the API, would like to point out errors or inconsiste
 You're also invited to contribute directly by creating a [pull request](https://github.com/dbinfrago/openstation-docs/pulls).
 
 _Note that, by participating in this project, you commit to the [code of conduct](CODE-OF-CONDUCT.md), and agree to release all of your contributions to the public domain (under the [CC0 “license”](https://creativecommons.org/publicdomain/zero/1.0/), for changes to the API documentation), and under the [APACHE 2.0 license](https://www.apache.org/licenses/LICENSE-2.0) (for code of any supporting programs in this repository), respectively._
+
+## AI notice
+
+Parts of this documentation were translated and/or linguistically improved using large language models. All outputs were manually reviewed for correctness by humans.
