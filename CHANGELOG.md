@@ -22,6 +22,6 @@
   - For backwards compatibility, `Name`'s inline text content is preserved alongside the new `Text` sub-elements during a transition period, but it will be removed on 2027-04-01 (see breaking change announcement below). Consumers should start reading names from the `Text` sub-elements now.
   - Announced upcoming breaking changes — consolidation of identifiers into the new `privateCodes` element, and removal of inline text from `Name` — which will take effect on 2027-04-01. See the [breaking change announcement](https://github.com/dbinfrago/openstation-docs/issues/2) for details.
 
-## 2026, November
+## 2026, October
 
 - Changelog is now synchronized with the OpenStation GitLab repository.
